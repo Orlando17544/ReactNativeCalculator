@@ -51,7 +51,7 @@ const App = () => {
 		</View>
 		<View style={{flexDirection: "column"}}> 
 		<View style={{flexDirection: "row"}}>
-		<TouchableOpacity style={[styles.button, styles.formatButton]}>
+		<TouchableOpacity style={[styles.button, styles.formatButton]} onPress={() => {setCalculatorText("0")}}>
 		<Text style={styles.formatText}>C</Text>
 		</TouchableOpacity>
 		<TouchableOpacity style={[styles.button, styles.formatButton]}>
