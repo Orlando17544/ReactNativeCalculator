@@ -54,6 +54,14 @@ const App = () => {
 		}
 	}
 
+	function enterDot() {
+		if (calculatorText.includes(".")) {
+			return;
+		} else {
+			setCalculatorText((number) => number + ".");
+		}
+	}
+
 	return (
 		<View style={{flex: 1, backgroundColor: "#000000", justifyContent: "space-between"}}>
 		<View style={{backgroundColor: "#000000", flex: 1}}>
@@ -120,7 +128,7 @@ const App = () => {
 		<TouchableOpacity style={[styles.button, styles.numbersButton, styles.zeroButton]} onPress={() => {enterNumber("0")}}>
 		<Text style={styles.numbersText}>0</Text>
 		</TouchableOpacity>
-		<TouchableOpacity style={[styles.button, styles.numbersButton]}>
+		<TouchableOpacity style={[styles.button, styles.numbersButton]} onPress={() => {enterDot()}}>
 		<Text style={styles.numbersText}>.</Text>
 		</TouchableOpacity>
 		<TouchableOpacity style={[styles.button, styles.operationsButton]}>
