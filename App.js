@@ -6,7 +6,7 @@
  * @flow strict-local
  */
 
-import React from 'react';
+import React, { useState } from 'react';
 import type {Node} from 'react';
 import {
 	SafeAreaView,
@@ -31,11 +31,23 @@ const FONT_SIZE = 50;
 const NEW_FONT_SIZE = FONT_SIZE * SCALE;
 
 const App = () => {
+	const [calculatorText, setCalculatorText] = useState("0");
+	const [isNumberInsertedAlready, setNumberInsertedAlready] = useState(false);
+
+	function enterNumber(enteredNumber) {
+		if (calculatorText == "0") {
+			setCalculatorText(enteredNumber);
+		} else if (calculatorText.length >= 10) {
+			return;			
+		} else {
+			setCalculatorText((number) => number + enteredNumber);
+		}
+	}
 
 	return (
 		<View style={{flex: 1, backgroundColor: "#000000", justifyContent: "space-between"}}>
 		<View style={{backgroundColor: "#000000", flex: 1}}>
-			<Text style={{color: "#FFFFFF", fontSize: NEW_FONT_SIZE, position: "absolute", bottom: 0, right: 0}}>0</Text>
+			<Text style={{color: "#FFFFFF", fontSize: NEW_FONT_SIZE, position: "absolute", bottom: 0, right: 0}}>{calculatorText}</Text>
 		</View>
 		<View style={{flexDirection: "column"}}> 
 		<View style={{flexDirection: "row"}}>
@@ -53,13 +65,13 @@ const App = () => {
 		</TouchableOpacity>
 		</View>
 		<View style={{flexDirection: "row"}}>
-		<TouchableOpacity style={[styles.button, styles.numbersButton]}>
+		<TouchableOpacity style={[styles.button, styles.numbersButton]} onPress={() => {enterNumber("7")}}>
 		<Text style={styles.numbersText}>7</Text>
 		</TouchableOpacity>
-		<TouchableOpacity style={[styles.button, styles.numbersButton]}>
+		<TouchableOpacity style={[styles.button, styles.numbersButton]} onPress={() => {enterNumber("8")}}>
 		<Text style={styles.numbersText}>8</Text>
 		</TouchableOpacity>
-		<TouchableOpacity style={[styles.button, styles.numbersButton]}>
+		<TouchableOpacity style={[styles.button, styles.numbersButton]} onPress={() => {enterNumber("9")}}>
 		<Text style={styles.numbersText}>9</Text>
 		</TouchableOpacity>
 		<TouchableOpacity style={[styles.button, styles.operationsButton]}>
@@ -67,13 +79,13 @@ const App = () => {
 		</TouchableOpacity>
 		</View>
 		<View style={{flexDirection: "row"}}>
-		<TouchableOpacity style={[styles.button, styles.numbersButton]}>
+		<TouchableOpacity style={[styles.button, styles.numbersButton]} onPress={() => {enterNumber("4")}}>
 		<Text style={styles.numbersText}>4</Text>
 		</TouchableOpacity>
-		<TouchableOpacity style={[styles.button, styles.numbersButton]}>
+		<TouchableOpacity style={[styles.button, styles.numbersButton]} onPress={() => {enterNumber("5")}}>
 		<Text style={styles.numbersText}>5</Text>
 		</TouchableOpacity>
-		<TouchableOpacity style={[styles.button, styles.numbersButton]}>
+		<TouchableOpacity style={[styles.button, styles.numbersButton]} onPress={() => {enterNumber("6")}}>
 		<Text style={styles.numbersText}>6</Text>
 		</TouchableOpacity>
 		<TouchableOpacity style={[styles.button, styles.operationsButton]}>
@@ -81,13 +93,13 @@ const App = () => {
 		</TouchableOpacity>
 		</View>
 		<View style={{flexDirection: "row"}}>
-		<TouchableOpacity style={[styles.button, styles.numbersButton]}>
+		<TouchableOpacity style={[styles.button, styles.numbersButton]} onPress={() => {enterNumber("1")}}>
 		<Text style={styles.numbersText}>1</Text>
 		</TouchableOpacity>
-		<TouchableOpacity style={[styles.button, styles.numbersButton]}>
+		<TouchableOpacity style={[styles.button, styles.numbersButton]} onPress={() => {enterNumber("2")}}>
 		<Text style={styles.numbersText}>2</Text>
 		</TouchableOpacity>
-		<TouchableOpacity style={[styles.button, styles.numbersButton]}>
+		<TouchableOpacity style={[styles.button, styles.numbersButton]} onPress={() => {enterNumber("3")}}>
 		<Text style={styles.numbersText}>3</Text>
 		</TouchableOpacity>
 		<TouchableOpacity style={[styles.button, styles.operationsButton]}>
@@ -95,7 +107,7 @@ const App = () => {
 		</TouchableOpacity>
 		</View>
 		<View style={{flexDirection: "row"}}>
-		<TouchableOpacity style={[styles.button, styles.numbersButton, styles.zeroButton]}>
+		<TouchableOpacity style={[styles.button, styles.numbersButton, styles.zeroButton]} onPress={() => {enterNumber("0")}}>
 		<Text style={styles.numbersText}>0</Text>
 		</TouchableOpacity>
 		<TouchableOpacity style={[styles.button, styles.numbersButton]}>
