@@ -44,6 +44,16 @@ const App = () => {
 		}
 	}
 
+	function changeSign() {
+		if (calculatorText[0] == "-") {
+			setCalculatorText((number) => number.slice(1));
+		} else if (calculatorText == "0") {
+			return;
+		} else {
+			setCalculatorText((number) => "-" + number);
+		}
+	}
+
 	return (
 		<View style={{flex: 1, backgroundColor: "#000000", justifyContent: "space-between"}}>
 		<View style={{backgroundColor: "#000000", flex: 1}}>
@@ -54,7 +64,7 @@ const App = () => {
 		<TouchableOpacity style={[styles.button, styles.formatButton]} onPress={() => {setCalculatorText("0")}}>
 		<Text style={styles.formatText}>C</Text>
 		</TouchableOpacity>
-		<TouchableOpacity style={[styles.button, styles.formatButton]}>
+		<TouchableOpacity style={[styles.button, styles.formatButton]} onPress={() => {changeSign()}}>
 		<Text style={styles.formatText}>+/-</Text>
 		</TouchableOpacity>
 		<TouchableOpacity style={[styles.button, styles.formatButton]}>
