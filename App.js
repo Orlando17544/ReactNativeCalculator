@@ -86,6 +86,22 @@ const App = () => {
 		}
 	}
 
+	function enterSubstraction() {
+		if (/\d|%/.test(calculatorText.slice(-1))) {
+			setCalculatorText((number) => number + " - ");
+		} else {
+			return;
+		}
+	}
+
+	function enterAddition() {
+		if (/\d|%/.test(calculatorText.slice(-1))) {
+			setCalculatorText((number) => number + " + ");
+		} else {
+			return;
+		}
+	}
+
 	return (
 		<View style={{flex: 1, backgroundColor: "#000000", justifyContent: "space-between"}}>
 		<View style={{backgroundColor: "#000000", flex: 1}}>
@@ -130,7 +146,7 @@ const App = () => {
 		<TouchableOpacity style={[styles.button, styles.numbersButton]} onPress={() => {enterNumber("6")}}>
 		<Text style={styles.numbersText}>6</Text>
 		</TouchableOpacity>
-		<TouchableOpacity style={[styles.button, styles.operationsButton]}>
+		<TouchableOpacity style={[styles.button, styles.operationsButton]} onPress={() => {enterSubstraction()}}>
 		<Text style={styles.operationsText}>-</Text>
 		</TouchableOpacity>
 		</View>
@@ -144,7 +160,7 @@ const App = () => {
 		<TouchableOpacity style={[styles.button, styles.numbersButton]} onPress={() => {enterNumber("3")}}>
 		<Text style={styles.numbersText}>3</Text>
 		</TouchableOpacity>
-		<TouchableOpacity style={[styles.button, styles.operationsButton]}>
+		<TouchableOpacity style={[styles.button, styles.operationsButton]} onPress={() => {enterAddition()}}>
 		<Text style={styles.operationsText}>+</Text>
 		</TouchableOpacity>
 		</View>
