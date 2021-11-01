@@ -29,18 +29,20 @@ const SIZE_BUTTON = WINDOW_WIDTH/4;
 const SCALE = PixelRatio.getFontScale();
 const FONT_SIZE = 50;
 const NEW_FONT_SIZE = FONT_SIZE * SCALE;
-
+	
 const App = () => {
 	const [calculatorText, setCalculatorText] = useState("0");
-	const [isNumberInsertedAlready, setNumberInsertedAlready] = useState(false);
+	const [resultCalculated, setResultCalculated] = useState(false);
 
 	function enterNumber(enteredNumber) {
-		if (calculatorText == "0") {
+		if (calculatorText == "0" || (resultCalculated && /\d/.test(calculatorText.slice(-1)))) {
 			setCalculatorText(enteredNumber);
+			setResultCalculated(false);
 		} else if (calculatorText.match(/\d/g).length >= 10) {
 			return;			
 		} else if (/\d| /.test(calculatorText.slice(-1))) {
 			setCalculatorText((number) => number + enteredNumber);
+			setResultCalculated(false);
 		}
 	}
 
@@ -100,6 +102,12 @@ const App = () => {
 		} else {
 			return;
 		}
+	}
+
+	function calculate() {
+		setCalculatorText(eval(calculatorText.replace("x", "*")).toString());
+
+		setResultCalculated(true);
 	}
 
 	return (
@@ -171,7 +179,7 @@ const App = () => {
 		<TouchableOpacity style={[styles.button, styles.numbersButton]} onPress={() => {enterDot()}}>
 		<Text style={styles.numbersText}>.</Text>
 		</TouchableOpacity>
-		<TouchableOpacity style={[styles.button, styles.operationsButton]}>
+		<TouchableOpacity style={[styles.button, styles.operationsButton]} onPress={() => {calculate()}}>
 		<Text style={styles.operationsText}>=</Text>
 		</TouchableOpacity>
 		</View>
