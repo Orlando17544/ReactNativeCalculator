@@ -37,9 +37,9 @@ const App = () => {
 	function enterNumber(enteredNumber) {
 		if (calculatorText == "0") {
 			setCalculatorText(enteredNumber);
-		} else if (calculatorText.length >= 10) {
+		} else if (calculatorText.match(/\d/g).length >= 10) {
 			return;			
-		} else {
+		} else if (/\d/.test(calculatorText.slice(-1))) {
 			setCalculatorText((number) => number + enteredNumber);
 		}
 	}
@@ -62,6 +62,14 @@ const App = () => {
 		}
 	}
 
+	function enterPercentage() {
+		if (/\d/.test(calculatorText.slice(-1))) {
+			setCalculatorText((number) => number + "%");
+		} else {
+			return;
+		}
+	}
+
 	return (
 		<View style={{flex: 1, backgroundColor: "#000000", justifyContent: "space-between"}}>
 		<View style={{backgroundColor: "#000000", flex: 1}}>
@@ -75,7 +83,7 @@ const App = () => {
 		<TouchableOpacity style={[styles.button, styles.formatButton]} onPress={() => {changeSign()}}>
 		<Text style={styles.formatText}>+/-</Text>
 		</TouchableOpacity>
-		<TouchableOpacity style={[styles.button, styles.formatButton]}>
+		<TouchableOpacity style={[styles.button, styles.formatButton]} onPress={() => {enterPercentage()}}>
 		<Text style={styles.formatText}>%</Text>
 		</TouchableOpacity>
 		<TouchableOpacity style={[styles.button, styles.operationsButton]}>
