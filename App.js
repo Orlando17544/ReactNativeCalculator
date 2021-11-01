@@ -78,6 +78,14 @@ const App = () => {
 		}
 	}
 
+	function enterMultiplication() {
+		if (/\d|%/.test(calculatorText.slice(-1))) {
+			setCalculatorText((number) => number + " x ");
+		} else {
+			return;
+		}
+	}
+
 	return (
 		<View style={{flex: 1, backgroundColor: "#000000", justifyContent: "space-between"}}>
 		<View style={{backgroundColor: "#000000", flex: 1}}>
@@ -108,7 +116,7 @@ const App = () => {
 		<TouchableOpacity style={[styles.button, styles.numbersButton]} onPress={() => {enterNumber("9")}}>
 		<Text style={styles.numbersText}>9</Text>
 		</TouchableOpacity>
-		<TouchableOpacity style={[styles.button, styles.operationsButton]}>
+		<TouchableOpacity style={[styles.button, styles.operationsButton]} onPress={() => {enterMultiplication()}}>
 		<Text style={styles.operationsText}>x</Text>
 		</TouchableOpacity>
 		</View>
