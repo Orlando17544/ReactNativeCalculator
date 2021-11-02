@@ -38,7 +38,7 @@ const App = () => {
 		if (calculatorText == "0" || (resultCalculated && /\d/.test(calculatorText.slice(-1)))) {
 			setCalculatorText(enteredNumber);
 			setResultCalculated(false);
-		} else if (calculatorText.match(/\d/g).length >= 10) {
+		} else if (calculatorText.length >= 15) {
 			return;			
 		} else if (/\d| /.test(calculatorText.slice(-1))) {
 			setCalculatorText((number) => number + enteredNumber);
@@ -65,47 +65,70 @@ const App = () => {
 	}
 
 	function enterPercentage() {
-		if (/\d/.test(calculatorText.slice(-1))) {
-			setCalculatorText((number) => number + "%");
-		} else {
+		if (calculatorText.length >= 15) {
 			return;
+		} else if (/\d/.test(calculatorText.slice(-1))) {
+			setCalculatorText((number) => number + "%");
 		}
 	}
 
 	function enterDivision() {
-		if (/\d|%/.test(calculatorText.slice(-1))) {
-			setCalculatorText((number) => number + " / ");
-		} else {
+		if (calculatorText.length >= 15) {
 			return;
+		} else if (/\d|%/.test(calculatorText.slice(-1))) {
+			setCalculatorText((number) => number + " / ");
 		}
 	}
 
 	function enterMultiplication() {
-		if (/\d|%/.test(calculatorText.slice(-1))) {
-			setCalculatorText((number) => number + " x ");
-		} else {
+		if (calculatorText.length >= 15) {
 			return;
+		} else if (/\d|%/.test(calculatorText.slice(-1))) {
+			setCalculatorText((number) => number + " x ");
 		}
 	}
 
 	function enterSubstraction() {
-		if (/\d|%/.test(calculatorText.slice(-1))) {
-			setCalculatorText((number) => number + " - ");
-		} else {
+		if (calculatorText.length >= 15) {
 			return;
+		} else if (/\d|%/.test(calculatorText.slice(-1))) {
+			setCalculatorText((number) => number + " - ");
 		}
 	}
 
 	function enterAddition() {
-		if (/\d|%/.test(calculatorText.slice(-1))) {
-			setCalculatorText((number) => number + " + ");
-		} else {
+		if (calculatorText.length >= 15) {
 			return;
+		} else if (/\d|%/.test(calculatorText.slice(-1))) {
+			setCalculatorText((number) => number + " + ");
 		}
 	}
 
 	function calculate() {
-		setCalculatorText(eval(calculatorText.replace("x", "*")).toString());
+
+		//Change "x" for "*"
+		let goodCalculatorText = calculatorText.replace("x", "*");
+
+		//To replace percentage operations for their results
+		const percentageArray = [...goodCalculatorText.matchAll(/(\d+) ([+\-*\/]) (\d+)%/g)];
+
+		let resultsArray = percentageArray.map((element) => {
+			if (element[2] == "+") {
+				return parseInt(element[1]) + parseInt(element[1]) * parseInt(element[3]) / 100;
+			} else if (element[2] == "-") {
+				return parseInt(element[1]) - parseInt(element[1]) * parseInt(element[3]) / 100;
+			} else if (element[2] == "*") {
+				return parseInt(element[1]) * parseInt(element[3]) / 100;
+			} else if (element[2] == "/") {
+				return parseInt(element[1]) / parseInt(element[3]) / 100;
+			}
+		});
+
+		resultsArray.forEach((element) => {
+			goodCalculatorText = goodCalculatorText.replace(/\d+ [+\-*\/] \d+%/, element.toString());
+		});
+
+		setCalculatorText(eval(goodCalculatorText).toString());
 
 		setResultCalculated(true);
 	}
