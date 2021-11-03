@@ -40,7 +40,7 @@ const App = () => {
 			setResultCalculated(false);
 		} else if (calculatorText.length >= 15) {
 			return;			
-		} else if (/\d| /.test(calculatorText.slice(-1))) {
+		} else if (/\d| |\./.test(calculatorText.slice(-1))) {
 			setCalculatorText((number) => number + enteredNumber);
 			setResultCalculated(false);
 		}
